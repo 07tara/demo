@@ -1,337 +1,248 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Online Movie Ticket Booking</title>
-    <link rel="stylesheet" href="styles.css">
+<head>
+    <title>Jewellery Sales Portal - DADU JEWELLERS</title>
     <style>
+        /* Importing a custom Google Font */
+        @import url('https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap');
+
+        /* General body styling */
         body {
-            margin: 0;
             font-family: Arial, sans-serif;
-            color: #333;
+            background-color: floralwhite;
+            margin: 0;
+            padding: 0;
         }
 
-        .header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 1rem 2rem;
-            background-color: #222;
-            color: #fff;
-        }
-
-        .logo {
-            font-size: 1.5rem;
-            font-weight: bold;
-        }
-
-        .navbar ul {
-            list-style: none;
-            display: flex;
-            gap: 1rem;
-        }
-
-        .navbar a {
-            color: #fff;
-            text-decoration: none;
-        }
-
-        .hero {
-            text-align: center;
-            padding: 4rem 2rem;
-            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('hero-bg.jpg') no-repeat center center/cover;
-            color: #fff;
-        }
-        
-        .cta {
-            padding: 0.75rem 1.5rem;
-            background-color: #ff4500;
-            border: none;
-            color: #fff;
-            cursor: pointer;
-            font-size: 1rem;
-            position: relative;
-        }
-
-        .cta-tooltip {
-            display: none;
-            position: absolute;
-            top: -30px;
-            left: 50%;
-            transform: translateX(-50%);
-            background-color: rgba(0, 0, 0, 0.8);
-            color: #fff;
-            padding: 5px 10px;
-            border-radius: 4px;
-            font-size: 0.875rem;
-            white-space: nowrap;
-        }
-
-        .cta:hover .cta-tooltip {
-            display: block;
-        }
-
-        .movie-list {
-            padding: 2rem;
-            background-color: #f4f4f4;
-        }
-
-        .movies-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1.5rem;
-        }
-        .movie-card {
-            background-color: #fff;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            padding: 1rem;
-            text-align: center;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-        }
-
-        .movie-image {
+        /* Welcome Banner -  */
+        .welcome-banner {
             width: 100%;
-            height: auto;
-            border-radius: 8px;
-            margin-bottom: 0.5rem;
-        }
-
-        #booking {
-            padding: 3rem;
-            background-color: #f4f4f4;
-            border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            max-width: 600px;
-            margin: 2rem auto;
+            overflow: hidden;
+            background-color: lightgrey;
+            font-family: Playfair Display, serif;
+            color: slategrey;
+            padding: 15px 0;
+            position: relative;
             text-align: center;
-        }
-
-        #booking h2 {
             font-size: 2rem;
-            margin-bottom: 1.5rem;
-            color: #333;
         }
 
-        #booking form {
-            display: flex;
-            flex-direction: column;
-            gap: 1.5rem;
+        
+        
+
+        /* Scrolling animation */
+        @keyframes moveText {
+            0% {
+                transform: translateX(100%);
+            }
+            100% {
+                transform: translateX(-100%);
+            }
         }
 
-        #booking select, #booking input {
-            padding: 1rem;
-            font-size: 1rem;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            outline: none;
-            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        /* Styling the table */
+        #jewellery-table {
+            width: 90%;
+            border-collapse: collapse;
+            margin: 20px auto;
         }
 
-        #booking select:focus, #booking input:focus {
-            border-color: #ff4500;
-            box-shadow: 0 0 5px rgba(255, 69, 0, 0.5);
-        }
-
-        #booking button {
-            padding: 1rem 2rem;
-            background-color: #ff4500;
-            color: white;
-            border: none;
-            border-radius: 8px;
-            font-size: 1.1rem;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
-
-        #booking button:hover {
-            background-color: #e43f00;
-        }
-
-        #booking button:active {
-            background-color: #c63700;
-        }
-
-        #seats {
-            -webkit-appearance: none;
-            -moz-appearance: none;
-            appearance: none;
-            background: url('https://cdn-icons-png.flaticon.com/128/1828/1828765.png') no-repeat scroll right center;
-            background-size: 20px;
-            padding-right: 35px;
-        }
-
-        .about, .contact {
-            padding: 2rem;
-        }
-
-        .contact form {
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-        }
-
-        .contact input, .contact textarea, .contact select {
-            padding: 0.5rem;
-            font-size: 1rem;
+        #jewellery-table td {
             border: 1px solid #ccc;
-            border-radius: 4px;
+            text-align: center;
+            padding: 10px;
+            background-color: beige;
         }
 
-        .footer {
-            text-align: center;
-            padding: 1rem;
-            background-color: #222;
-            color: #fff;
+        /* Product cell styling */
+        .product {
+            position: relative;
+            background-color: white;
+            border-radius: 5px;
+            padding: 10px;
+            transition: transform 0.3s ease;
         }
+
+        .product:hover {
+            transform: scale(1.05);
+        }
+
+        .product img {
+            width: 200px; /* Uniform image size */
+            height: 200px;
+            object-fit: cover;
+            border-radius: 5px;
+        }
+
+        .product-name {
+            font-size: 1rem;
+            font-weight: bold;
+            margin-top: 10px;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .product-price {
+            color: black;
+            font-size: 0.8rem;
+            margin: 5px 0;
+        }
+
+        /* Button styling */
+        .button {
+            display: inline-block;
+            margin: 5px;
+            padding: 5px 10px;
+            background-color: lightyellow;
+            color: black;
+            text-decoration: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.9rem;
+        }
+
+        .button:hover {
+            background-color: whitesmoke;
+
+        }
+        .heartbutton {
+            background: none;
+            color: red;
+            font-size: 1.5rem;
+            border: none;
+            cursor: pointer;
+        }
+
+        .heartbutton:hover {
+            color: darkred;
+
+        .product-description {
+            font-size: 0.5rem;
+            color: #555;
+            margin: 10px 0;
+        }
+
+        /* Space between product rows */
+        tr + tr {
+            margin-top: 20px;
+
     </style>
 </head>
 <body>
-    <header class="header">
-        <div class="logo">MovieMania</div>
-        <nav class="navbar">
-            <ul>
-                <li><a href="#home">Home</a></li>
-                <li><a href="#movies">Movies</a></li>
-                <li><a href="#booking">Book Tickets</a></li>
-                <li><a href="#contact">Contact</a></li>
-            </ul>
-        </nav>
-    </header>
 
-    <section id="home" class="hero">
-        <h1>Welcome to MovieMania</h1>
-        <p>Your ultimate destination for booking movie tickets!</p>
-        <a href="movie.html" class="cta" onmouseover="showTooltip(this)" onmouseout="hideTooltip(this)">
-            Explore Now
-            <span class="cta-tooltip">Click to explore</span>
-        </a>
-    </section>
+    <div class="welcome-banner">Welcome to DADU JEWELLERS!</div>
 
-    <section id="movies" class="movie-list">
-        <h2>Available Movies</h2>
-        <div class="movies-container">
-        </div>
-    </section>
+    </div>
 
-    <section id="booking" class="booking">
-        <h2>Book Your Tickets</h2>
-        <form id="booking-form" onsubmit="handleBookingFormSubmit(event)">
-            <label for="movie-select">Choose a movie:</label>
-            <select id="movie-select" required>
-                <option value="">Select a movie</option>
-                <option value="The Dark Knight">The Dark Knight</option>
-                <option value="Inception">Inception</option>
-                <option value="Interstellar">Interstellar</option>
-                <option value="Tenet">Tenet</option>
-                <option value="Tumbadd">Tumbadd</option>
-                <option value="Hera Pheri">Hera Pheri</option>
-                <option value="Phir Hera Pheri">Phir Hera Pheri</option>
-                <option value="Gulaal">Gulaal</option>
-                
-            
-            </select>
+    <table id="jewellery-table">
+        <!-- First Row of Products -->
+        <tr>
+            <td class="product">
+                <img src="https://www.orra.co.in/media/catalog/product/cache/a062e776095ada03f265202079309f18/o/s/osn19041_2_gpkemjdffhlflbgm.jpg" alt="Necklace">
+                <div class="product-name">Diamond Necklace</div>
+                <div class="product-price">Rs 5,50,000</div>
+                <a href="#" class="button">Add to Cart</a>
+                <a href="#" class="heartbutton">❤️</a>
+                <div class="product-description">Elegant design.</div>
 
-            <label for="seats">Number of Tickets:</label>
-            <input type="number" id="seats" min="1" max="10" placeholder="Enter number of tickets" required>
+            </td>
+            <td class="product">
+                <img src="https://d322s37z6qhrgo.cloudfront.net/wp-content/uploads/2024/01/WER0296-2-4.jpg" alt="Earrings">
+                <div class="product-name">Diamond Earrings</div>
+                <div class="product-price">Rs 2,20,000</div>
+                <a href="#" class="button">Add to Cart</a>
+                <a href="#" class="heartbutton">❤️</a>
+                <div class="product-description">Exquisite craftsmanship with a modern touch.</div>
 
-            <button type="submit">Book Tickets</button>
-        </form>
-    </section>
+            </td>
+            <td class="product">
+                <img src="https://nemichandjewels.com/cdn/shop/files/850_6498.jpg?v=1696847880&width=1100" alt="Bracelet">
+                <div class="product-name">Silver Bracelet</div>
+                <div class="product-price">Rs 60,000</div>
+                <a href="#" class="button">Add to Cart</a>
+                <a href="#" class="heartbutton">❤️</a>
+                <div class="product-description">Perfect for gifting and everyday wear.</div>
 
-    <section id="contact" class="contact">
-        <h2>Contact Us</h2>
-        <form id="contact-form" onsubmit="handleContactFormSubmit(event)">
-            <input type="text" placeholder="Your Name" required>
-            <input type="email" placeholder="Your Email" required>
-            <textarea placeholder="Your Message" required></textarea>
-            <button type="submit">Send</button>
-        </form>
-    </section>
+            </td>
+            <td class="product">
+                <img src="https://www.sarvadajewels.com/media/catalog/product/cache/1/image/9df78eab33525d08d6e5fb8d27136e95/p/e/perp_110_150w_1.jpg" alt="Ring">
+                <div class="product-name">Platinum Ring</div>
+                <div class="product-price">Rs 1,10,000</div>
+                <a href="#" class="button">Add to Cart</a>
+                <a href="#" class="heartbutton">❤️</a>
+                <div class="product-description">Timeless elegance, crafted with perfection.</div>
 
-    <footer class="footer">
-        <p>&copy; 2025 MovieMania. All rights reserved.</p>
-    </footer>
+            </td>
+            <td class="product">
+                <img src="https://silverdekho.in/wp-content/uploads/2023/05/ASC00086.jpg" alt="Pendant">
+                <div class="product-name">Ruby Pendant</div>
+                <div class="product-price">Rs 1,50,000</div>
+                <a href="#" class="button">Add to Cart</a>
+                <a href="#" class="heartbutton">❤️</a>
+                <div class="product-description">A striking design that adds charm to any outfit.</div>
 
-    <script>
-        function showTooltip(button) {
-            const tooltip = button.querySelector(".cta-tooltip");
-            if (tooltip) {
-                tooltip.style.display = "block";
-            }
-        }
+            </td>
+        </tr>
+        
+        <!-- Second Row of Products -->
+        <tr>
+            <td class="product">
+                <img src="https://www.chidambaramgoldcovering.com/image/cache/catalog/ChidambaramGoldCovering/anklets/ankl1198-new-plain-gold-anklet-shop-online-1-1700x2000.jpg" alt="Anklet">
+                <div class="product-name">Gold Anklet</div>
+                <div class="product-price">Rs 60,000</div>
+                <a href="#" class="button">Add to Cart</a>
+                <a href="#" class="heartbutton">❤️</a>
+                <div class="product-description">Simple yet elegant.</div>
 
-        function hideTooltip(button) {
-            const tooltip = button.querySelector(".cta-tooltip");
-            if (tooltip) {
-                tooltip.style.display = "none";
-            }
-        }
+            </td>
+            <td class="product">
+                <img src="https://5.imimg.com/data5/SELLER/Default/2023/2/BM/OQ/CU/68103635/6-1000x1000.jpg" alt="Brooch">
+                <div class="product-name">Diamond Brooch</div>
+                <div class="product-price">Rs 20,00,000</div>
+                <a href="#" class="button">Add to Cart</a>
+                <a href="#" class="heartbutton">❤️</a>
+                <div class="product-description">A statement piece that elevates any attire.</div>
+            </td>
+            <td class="product">
+                <img src="https://i.etsystatic.com/28777824/r/il/40325c/3627802597/il_1588xN.3627802597_4zzr.jpg" alt="Tiara">
+                <div class="product-name">Silver Tiara</div>
+                <div class="product-price">Rs 30,00,000</div>
+                <a href="#" class="button">Add to Cart</a>
+                <a href="#" class="heartbutton">❤️</a>
+                <div class="product-description">Fit for royalty.</div>
 
-        function handleMouseOver(movieCard) {
-            movieCard.style.backgroundColor = "#f0f0f0";
-        }
+            </td>
+            <td class="product">
+                <img src="https://5.imimg.com/data5/SELLER/Default/2024/3/403138967/LM/NS/ZN/2779074/18k-gold-cufflinks-1000x1000.jpg" alt="Cufflinks">
+                <div class="product-name">Gold Cufflinks</div>
+                <div class="product-price">Rs 20,000</div>
+                <a href="#" class="button">Add to Cart</a>
+                <a href="#" class="heartbutton">❤️</a>
+                <div class="product-description">Stylish and sophisticated.</div>
 
-        function handleMouseOut(movieCard) {
-            movieCard.style.backgroundColor = "";
-        }
+            </td>
+            <td class="product">
+                <img src="https://menofplatinum.com/wp-content/uploads/2024/09/The-Rhombus-Motif-Chain-1.jpg" alt="Chain">
+                <div class="product-name">Platinum Chain</div>
+                <div class="product-price">Rs 1,00,000</div>
+                <a href="#" class="button">Add to Cart</a>
+                <a href="#" class="heartbutton">❤️</a>
+                <div class="product-description">Perfect for daily wear.</div>
 
-        function handleContextMenu(event, movieTitle) {
-            event.preventDefault();
-            alert(`Right-clicked on ${movieTitle}`);
-        }
-
-        function handleBookingFormSubmit(event) {
-            event.preventDefault();
-            const movie = document.getElementById("movie-select").value;
-            const seats = document.getElementById("seats").value;
-            if (movie && seats) {
-                alert(`You have booked ${seats} ticket(s) for ${movie}`);
-                event.target.reset();
-            }
-        }
-
-        function handleContactFormSubmit(event) {
-            event.preventDefault();
-            alert("Thank you for your message!");
-            event.target.reset();
-        }
-
-        function fun(button) {
-            let divElement = document.querySelector("div");
-            divElement[0].innerHTML = "hi";
-            console.log(divElement);
-        }
-
-        document.addEventListener("DOMContentLoaded", () => {
-            const moviesContainer = document.querySelector(".movies-container");
-
-            const movies = [
-                { title: "The Dark Knight", year: 2008, image: "https://image.tmdb.org/t/p/original/a6KOgIPyVpGeXUVPqFKlM5nVfPy.jpg" },
-                { title: "Inception", year: 2010, image: "https://th.bing.com/th/id/OIP.fYLXgLBnnbp3N8JCRuUIGAHaLH?rs=1&pid=ImgDetMain" },
-                { title: "Interstellar", year: 2014, image: "https://th.bing.com/th/id/OIP.IITHqVKELpHdILNxfKbEDwHaLI?rs=1&pid=ImgDetMain" },
-                { title: "Tenet", year: 2020, image: "https://m.media-amazon.com/images/M/MV5BYzg0NGM2NjAtNmIxOC00MDJmLTg5ZmYtYzM0MTE4NWE2NzlhXkEyXkFqcGdeQXVyMTA4NjE0NjEy._V1_.jpg" },
-            ];
-
-            movies.forEach(movie => {
-                const movieCard = document.createElement("div");
-                movieCard.classList.add("movie-card");
-                movieCard.innerHTML = `
-                    <img src="${movie.image}" alt="${movie.title}" class="movie-image">
-                    <h3>${movie.title}</h3>
-                    <p>Year: ${movie.year}</p>
-                `;
-
-                movieCard.addEventListener("mouseover", () => handleMouseOver(movieCard));
-                movieCard.addEventListener("mouseout", () => handleMouseOut(movieCard));
-                movieCard.addEventListener("contextmenu", (e) => handleContextMenu(e, movie.title));
-
-                moviesContainer.appendChild(movieCard);
-            });
-
-
-        });
-    </script>
+            </td>
+        </tr>
+    </table>
 </body>
+<footer style="background-color: lightgrey; color: black; padding: 20px 0; text-align: center; font-size: 1rem;">
+    <div>
+        <p><strong>Contact Us:</strong></p>
+        <p>Email: support@dadujewellers.com</p>
+        <p>Phone: +91 123 456 7890</p>
+        <p>Address: Sarafa line, Kharsia, Chattisgarh, 123456</p>
+    </div>
+     <div>
+        <p>&copy; 2024 DADU JEWELLERS. All Rights Reserved.</p>
+    </div>
+</footer>
 </html>
