@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Online Movie Ticket Booking</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            color: #333;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+            background-color: #222;
+            color: #fff;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .navbar ul {
+            list-style: none;
+            display: flex;
+            gap: 1rem;
+        }
+
+        .navbar a {
+            color: #fff;
+            text-decoration: none;
+        }
+
+        .hero {
+            text-align: center;
+            padding: 4rem 2rem;
+            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('hero-bg.jpg') no-repeat center center/cover;
+            color: #fff;
+        }
+        
+        .cta {
+            padding: 0.75rem 1.5rem;
+            background-color: #ff4500;
+            border: none;
+            color: #fff;
+            cursor: pointer;
+            font-size: 1rem;
+            position: relative;
+        }
+
+        .cta-tooltip {
+            display: none;
+            position: absolute;
+            top: -30px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: rgba(0, 0, 0, 0.8);
+            color: #fff;
+            padding: 5px 10px;
+            border-radius: 4px;
+            font-size: 0.875rem;
+            white-space: nowrap;
+        }
+
+        .cta:hover .cta-tooltip {
+            display: block;
+        }
+
+        .movie-list {
+            padding: 2rem;
+            background-color: #f4f4f4;
+        }
+
+        .movies-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+        }
+        .movie-card {
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 1rem;
+            text-align: center;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .movie-image {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+            margin-bottom: 0.5rem;
+        }
+
+        #booking {
+            padding: 3rem;
+            background-color: #f4f4f4;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+            margin: 2rem auto;
+            text-align: center;
+        }
+
+        #booking h2 {
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            color: #333;
+        }
+
+        #booking form {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        #booking select, #booking input {
+            padding: 1rem;
+            font-size: 1rem;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            outline: none;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        #booking select:focus, #booking input:focus {
+            border-color: #ff4500;
+            box-shadow: 0 0 5px rgba(255, 69, 0, 0.5);
+        }
+
+        #booking button {
+            padding: 1rem 2rem;
+            background-color: #ff4500;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        #booking button:hover {
+            background-color: #e43f00;
+        }
+
+        #booking button:active {
+            background-color: #c63700;
+        }
+
+        #seats {
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            background: url('https://cdn-icons-png.flaticon.com/128/1828/1828765.png') no-repeat scroll right center;
+            background-size: 20px;
+            padding-right: 35px;
+        }
+
+        .about, .contact {
+            padding: 2rem;
+        }
+
+        .contact form {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .contact input, .contact textarea, .contact select {
+            padding: 0.5rem;
+            font-size: 1rem;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 1rem;
+            background-color: #222;
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="logo">MovieMania</div>
+        <nav class="navbar">
+            <ul>
+                <li><a href="#home">Home</a></li>
+                <li><a href="#movies">Movies</a></li>
+                <li><a href="#booking">Book Tickets</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section id="home" class="hero">
+        <h1>Welcome to MovieMania</h1>
+        <p>Your ultimate destination for booking movie tickets!</p>
+        <a href="movie.html" class="cta" onmouseover="showTooltip(this)" onmouseout="hideTooltip(this)">
+            Explore Now
+            <span class="cta-tooltip">Click to explore</span>
+        </a>
+    </section>
+
+    <section id="movies" class="movie-list">
+        <h2>Available Movies</h2>
+        <div class="movies-container">
+        </div>
+    </section>
+
+    <section id="booking" class="booking">
+        <h2>Book Your Tickets</h2>
+        <form id="booking-form" onsubmit="handleBookingFormSubmit(event)">
+            <label for="movie-select">Choose a movie:</label>
+            <select id="movie-select" required>
+                <option value="">Select a movie</option>
+                <option value="The Dark Knight">The Dark Knight</option>
+                <option value="Inception">Inception</option>
+                <option value="Interstellar">Interstellar</option>
+                <option value="Tenet">Tenet</option>
+                <option value="Tumbadd">Tumbadd</option>
+                <option value="Hera Pheri">Hera Pheri</option>
+                <option value="Phir Hera Pheri">Phir Hera Pheri</option>
+                <option value="Gulaal">Gulaal</option>
+                
+            
+            </select>
+
+            <label for="seats">Number of Tickets:</label>
+            <input type="number" id="seats" min="1" max="10" placeholder="Enter number of tickets" required>
+
+            <button type="submit">Book Tickets</button>
+        </form>
+    </section>
+
+    <section id="contact" class="contact">
+        <h2>Contact Us</h2>
+        <form id="contact-form" onsubmit="handleContactFormSubmit(event)">
+            <input type="text" placeholder="Your Name" required>
+            <input type="email" placeholder="Your Email" required>
+            <textarea placeholder="Your Message" required></textarea>
+            <button type="submit">Send</button>
+        </form>
+    </section>
+
+    <footer class="footer">
+        <p>&copy; 2025 MovieMania. All rights reserved.</p>
+    </footer>
+
+    <script>
+        function showTooltip(button) {
+            const tooltip = button.querySelector(".cta-tooltip");
+            if (tooltip) {
+                tooltip.style.display = "block";
+            }
+        }
+
+        function hideTooltip(button) {
+            const tooltip = button.querySelector(".cta-tooltip");
+            if (tooltip) {
+                tooltip.style.display = "none";
+            }
+        }
+
+        function handleMouseOver(movieCard) {
+            movieCard.style.backgroundColor = "#f0f0f0";
+        }
+
+        function handleMouseOut(movieCard) {
+            movieCard.style.backgroundColor = "";
+        }
+
+        function handleContextMenu(event, movieTitle) {
+            event.preventDefault();
+            alert(`Right-clicked on ${movieTitle}`);
+        }
+
+        function handleBookingFormSubmit(event) {
+            event.preventDefault();
+            const movie = document.getElementById("movie-select").value;
+            const seats = document.getElementById("seats").value;
+            if (movie && seats) {
+                alert(`You have booked ${seats} ticket(s) for ${movie}`);
+                event.target.reset();
+            }
+        }
+
+        function handleContactFormSubmit(event) {
+            event.preventDefault();
+            alert("Thank you for your message!");
+            event.target.reset();
+        }
+
+        function fun(button) {
+            let divElement = document.querySelector("div");
+            divElement[0].innerHTML = "hi";
+            console.log(divElement);
+        }
+
+        document.addEventListener("DOMContentLoaded", () => {
+            const moviesContainer = document.querySelector(".movies-container");
+
+            const movies = [
+                { title: "The Dark Knight", year: 2008, image: "https://image.tmdb.org/t/p/original/a6KOgIPyVpGeXUVPqFKlM5nVfPy.jpg" },
+                { title: "Inception", year: 2010, image: "https://th.bing.com/th/id/OIP.fYLXgLBnnbp3N8JCRuUIGAHaLH?rs=1&pid=ImgDetMain" },
+                { title: "Interstellar", year: 2014, image: "https://th.bing.com/th/id/OIP.IITHqVKELpHdILNxfKbEDwHaLI?rs=1&pid=ImgDetMain" },
+                { title: "Tenet", year: 2020, image: "https://m.media-amazon.com/images/M/MV5BYzg0NGM2NjAtNmIxOC00MDJmLTg5ZmYtYzM0MTE4NWE2NzlhXkEyXkFqcGdeQXVyMTA4NjE0NjEy._V1_.jpg" },
+            ];
+
+            movies.forEach(movie => {
+                const movieCard = document.createElement("div");
+                movieCard.classList.add("movie-card");
+                movieCard.innerHTML = `
+                    <img src="${movie.image}" alt="${movie.title}" class="movie-image">
+                    <h3>${movie.title}</h3>
+                    <p>Year: ${movie.year}</p>
+                `;
+
+                movieCard.addEventListener("mouseover", () => handleMouseOver(movieCard));
+                movieCard.addEventListener("mouseout", () => handleMouseOut(movieCard));
+                movieCard.addEventListener("contextmenu", (e) => handleContextMenu(e, movie.title));
+
+                moviesContainer.appendChild(movieCard);
+            });
+
+
+        });
+    </script>
+</body>
+</html>
